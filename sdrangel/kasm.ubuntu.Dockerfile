@@ -199,25 +199,25 @@ RUN git clone https://github.com/f4exb/libsigmf.git \
     && make -j${nb_cores} install
 
 # SGP4
-FROM base AS sgp4
-ARG nb_cores
-WORKDIR /opt/build
-RUN git clone https://github.com/dnwrnr/sgp4.git \
-    && cd sgp4 \
-    && mkdir build; cd build \
-    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/sgp4 .. \
-    && make -j${nb_cores} install
+#FROM base AS sgp4
+#ARG nb_cores
+#WORKDIR /opt/build
+#RUN git clone https://github.com/dnwrnr/sgp4.git \
+#    && cd sgp4 \
+#    && mkdir build; cd build \
+#    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/sgp4 .. \
+#    && make -j${nb_cores} install
 
 # Airspy
-FROM base AS airspy
-ARG nb_cores
-WORKDIR /opt/build
-RUN git clone https://github.com/airspy/airspyone_host.git libairspy \
-    && cd libairspy \
-    && git reset --hard 37c768ce9997b32e7328eb48972a7fda0a1f8554 \
-    && mkdir build; cd build \
-    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libairspy .. \
-    && make -j${nb_cores} install
+#FROM base AS airspy
+#ARG nb_cores
+#WORKDIR /opt/build
+#RUN git clone https://github.com/airspy/airspyone_host.git libairspy \
+#    && cd libairspy \
+#    && git reset --hard 37c768ce9997b32e7328eb48972a7fda0a1f8554 \
+#    && mkdir build; cd build \
+#    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libairspy .. \
+#    && make -j${nb_cores} install
 
 # RTL-SDR
 FROM base AS rtlsdr
@@ -231,68 +231,68 @@ RUN git clone https://github.com/osmocom/rtl-sdr.git librtlsdr \
     && make -j${nb_cores} install
 
 # PlutoSDR
-FROM base AS plutosdr
-ARG nb_cores
-WORKDIR /opt/build
-RUN git clone https://github.com/analogdevicesinc/libiio.git \
-    && cd libiio \
-    && git reset --hard "v0.21" \
-    && mkdir build; cd build \
-    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libiio -DINSTALL_UDEV_RULE=OFF .. \
-    && make -j${nb_cores} install
+#FROM base AS plutosdr
+#ARG nb_cores
+#WORKDIR /opt/build
+#RUN git clone https://github.com/analogdevicesinc/libiio.git \
+#    && cd libiio \
+#    && git reset --hard "v0.21" \
+#    && mkdir build; cd build \
+#    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libiio -DINSTALL_UDEV_RULE=OFF .. \
+#    && make -j${nb_cores} install
 
 # BladeRF
-FROM base AS bladerf
-ARG nb_cores
-WORKDIR /opt/build
-RUN git clone https://github.com/Nuand/bladeRF.git \
-    && cd bladeRF/host \
-    && git reset --hard "2021.02" \
-    && mkdir build; cd build \
-    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libbladeRF -DINSTALL_UDEV_RULES=OFF .. \
-    && make -j${nb_cores} install
-RUN mkdir /opt/install/libbladeRF/fpga \
-    && wget -P /opt/install/libbladeRF/fpga https://www.nuand.com/fpga/v0.11.0/hostedxA4.rbf \
-    && wget -P /opt/install/libbladeRF/fpga https://www.nuand.com/fpga/v0.11.0/hostedxA9.rbf \
-    && wget -P /opt/install/libbladeRF/fpga https://www.nuand.com/fpga/v0.11.0/hostedx40.rbf \
-    && wget -P /opt/install/libbladeRF/fpga https://www.nuand.com/fpga/v0.11.0/hostedx115.rbf
+#FROM base AS bladerf
+#ARG nb_cores
+#WORKDIR /opt/build
+#RUN git clone https://github.com/Nuand/bladeRF.git \
+#    && cd bladeRF/host \
+#    && git reset --hard "2021.02" \
+#    && mkdir build; cd build \
+#    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libbladeRF -DINSTALL_UDEV_RULES=OFF .. \
+#    && make -j${nb_cores} install
+#RUN mkdir /opt/install/libbladeRF/fpga \
+#    && wget -P /opt/install/libbladeRF/fpga https://www.nuand.com/fpga/v0.11.0/hostedxA4.rbf \
+#    && wget -P /opt/install/libbladeRF/fpga https://www.nuand.com/fpga/v0.11.0/hostedxA9.rbf \
+#    && wget -P /opt/install/libbladeRF/fpga https://www.nuand.com/fpga/v0.11.0/hostedx40.rbf \
+#    && wget -P /opt/install/libbladeRF/fpga https://www.nuand.com/fpga/v0.11.0/hostedx115.rbf
 
 # HackRF
-FROM base AS hackrf
-ARG nb_cores
-WORKDIR /opt/build
-RUN git clone https://github.com/greatscottgadgets/hackrf.git \
-    && cd hackrf/host \
-    && git reset --hard "v2022.09.1" \
-    && mkdir build; cd build \
-    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libhackrf -DINSTALL_UDEV_RULES=OFF .. \
-    && make -j${nb_cores} install
+#FROM base AS hackrf
+#ARG nb_cores
+#WORKDIR /opt/build
+#RUN git clone https://github.com/greatscottgadgets/hackrf.git \
+#    && cd hackrf/host \
+#    && git reset --hard "v2022.09.1" \
+#    && mkdir build; cd build \
+#    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libhackrf -DINSTALL_UDEV_RULES=OFF .. \
+#    && make -j${nb_cores} install
 
 # LimeSDR
-FROM base AS limesdr_clone
-WORKDIR /opt/build
-RUN wget https://github.com/myriadrf/LimeSuite/archive/refs/tags/v22.09.0.tar.gz \
-    && tar -xf v22.09.0.tar.gz \
-    && ln -s LimeSuite-22.09.0 LimeSuite \
-    && cd LimeSuite \
-    && mkdir builddir
+#FROM base AS limesdr_clone
+#WORKDIR /opt/build
+#R#U wget https://github.com/myriadrf/LimeSuite/archive/refs/tags/v22.09.0.tar.gz \
+#    && tar -xf v22.09.0.tar.gz \
+#    && ln -s LimeSuite-22.09.0 LimeSuite \
+#    && cd LimeSuite \
+#    && mkdir builddir
 
-FROM limesdr_clone as limesdr
-ARG nb_cores
-RUN cd /opt/build/LimeSuite/builddir \
-    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/LimeSuite .. \
-    && make -j${nb_cores} install
+#FROM limesdr_clone as limesdr
+#ARG nb_cores
+#RUN cd /opt/build/LimeSuite/builddir \
+#    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/LimeSuite .. \
+#    && make -j${nb_cores} install
 
 # Airspy HF
-FROM base AS airspyhf
-ARG nb_cores
-WORKDIR /opt/build
-RUN git clone https://github.com/airspy/airspyhf \
-    && cd airspyhf \
-    && git reset --hard 1af81c0ca18944b8c9897c3c98dc0a991815b686 \
-    && mkdir build; cd build \
-    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libairspyhf .. \
-    && make -j${nb_cores} install
+#FROM base AS airspyhf
+#ARG nb_cores
+#WORKDIR /opt/build
+#RUN git clone https://github.com/airspy/airspyhf \
+#    && cd airspyhf \
+#    && git reset --hard 1af81c0ca18944b8c9897c3c98dc0a991815b686 \
+#    && mkdir build; cd build \
+#    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libairspyhf .. \
+#    && make -j${nb_cores} install
 
 # Perseus
 FROM base AS perseus
@@ -321,24 +321,24 @@ RUN git clone https://github.com/f4exb/images.git xtrx-images \
     && make -j${nb_cores} install
 
 # UHD
-FROM base AS uhd
-ARG nb_cores
-WORKDIR /opt/build
-RUN git clone https://github.com/EttusResearch/uhd.git \
-    && cd uhd/host \
-    && git reset --hard v4.3.0.0 \
-    && mkdir build; cd build \
-    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/uhd \
-    -DENABLE_PYTHON_API=OFF \
-    -DENABLE_EXAMPLES=OFF \
-    -DENABLE_TESTS=OFF \
-    -DENABLE_E320=OFF \
-    -DENABLE_E300=OFF \
-    -DINSTALL_UDEV_RULES=OFF .. \
-    && make -j${nb_cores} install
+#FROM base AS uhd
+#ARG nb_cores
+#WORKDIR /opt/build
+#RUN git clone https://github.com/EttusResearch/uhd.git \
+#    && cd uhd/host \
+#    && git reset --hard v4.3.0.0 \
+#    && mkdir build; cd build \
+#    && cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/uhd \
+#    -DENABLE_PYTHON_API=OFF \
+#    -DENABLE_EXAMPLES=OFF \
+#    -DENABLE_TESTS=OFF \
+#    -DENABLE_E320=OFF \
+#    -DENABLE_E300=OFF \
+#    -DINSTALL_UDEV_RULES=OFF .. \
+#    && make -j${nb_cores} install
 # Download firmware images for models requiring them at run time (see https://files.ettus.com/manual/page_images.html)
-RUN /opt/install/uhd/lib/uhd/utils/uhd_images_downloader.py -t usrp1
-RUN /opt/install/uhd/lib/uhd/utils/uhd_images_downloader.py -t b2xx
+#RUN /opt/install/uhd/lib/uhd/utils/uhd_images_downloader.py -t usrp1
+#RUN /opt/install/uhd/lib/uhd/utils/uhd_images_downloader.py -t b2xx
 # RUN /opt/install/uhd/lib/uhd/utils/uhd_images_downloader.py -t e3xx_e310 - too big
 # RUN /opt/install/uhd/lib/uhd/utils/uhd_images_downloader.py -t e3xx_e320_fpga - too big
 
@@ -362,18 +362,18 @@ COPY --from=serialdv --chown=sdr /opt/install /opt/install
 COPY --from=dsdcc --chown=sdr /opt/install /opt/install
 COPY --from=codec2 --chown=sdr /opt/install /opt/install
 COPY --from=libsigmf --chown=sdr /opt/install /opt/install
-COPY --from=sgp4 --chown=sdr /opt/install /opt/install
-COPY --from=airspy --chown=sdr /opt/install /opt/install
+#COPY --from=sgp4 --chown=sdr /opt/install /opt/install
+#COPY --from=airspy --chown=sdr /opt/install /opt/install
 COPY --from=rtlsdr --chown=sdr /opt/install /opt/install
-COPY --from=plutosdr --chown=sdr /opt/install /opt/install
-COPY --from=bladerf --chown=sdr /opt/install /opt/install
-COPY --from=hackrf --chown=sdr /opt/install /opt/install
-COPY --from=limesdr --chown=sdr /opt/install /opt/install
-COPY --from=airspyhf --chown=sdr /opt/install /opt/install
+#COPY --from=plutosdr --chown=sdr /opt/install /opt/install
+#COPY --from=bladerf --chown=sdr /opt/install /opt/install
+#COPY --from=hackrf --chown=sdr /opt/install /opt/install
+#COPY --from=limesdr --chown=sdr /opt/install /opt/install
+#COPY --from=airspyhf --chown=sdr /opt/install /opt/install
 COPY --from=perseus --chown=sdr /opt/install /opt/install
 COPY --from=xtrx --chown=sdr /opt/install /opt/install
 COPY --from=libmirisdr --chown=sdr /opt/install /opt/install
-COPY --from=uhd --chown=sdr /opt/install /opt/install
+#COPY --from=uhd --chown=sdr /opt/install /opt/install
 # This is to allow sharing pulseaudio with the host
 COPY --chmod=644 pulse-client.conf /etc/pulse/client.conf
 
@@ -395,10 +395,10 @@ RUN cmake -Wno-dev -DDEBUG_OUTPUT=ON -DBUILD_TYPE=RELEASE -DRX_SAMPLE_24BIT=ON -
     -DMIRISDR_DIR=/opt/install/libmirisdr \
     -DAIRSPY_DIR=/opt/install/libairspy \
     -DAIRSPYHF_DIR=/opt/install/libairspyhf \
-    -DBLADERF_DIR=/opt/install/libbladeRF \
-    -DHACKRF_DIR=/opt/install/libhackrf \
+#    -DBLADERF_DIR=/opt/install/libbladeRF \
+#    -DHACKRF_DIR=/opt/install/libhackrf \
     -DRTLSDR_DIR=/opt/install/librtlsdr \
-    -DLIMESUITE_DIR=/opt/install/LimeSuite \
+#    -DLIMESUITE_DIR=/opt/install/LimeSuite \
     -DIIO_DIR=/opt/install/libiio \
     -DAPT_DIR=/opt/install/aptdec \
     -DCM256CC_DIR=/opt/install/cm256cc \
@@ -412,19 +412,21 @@ RUN cmake -Wno-dev -DDEBUG_OUTPUT=ON -DBUILD_TYPE=RELEASE -DRX_SAMPLE_24BIT=ON -
     -DPERSEUS_DIR=/opt/install/libperseus \
     -DXTRX_DIR=/opt/install/xtrx-images \
     -DSOAPYSDR_DIR=/opt/install/SoapySDR \
-    -DUHD_DIR=/opt/install/uhd \
+#    -DUHD_DIR=/opt/install/uhd \
     -DCMAKE_INSTALL_PREFIX=/opt/install/sdrangel ..
-RUN make -j${nproc} install
-COPY --from=bladerf --chown=root /opt/install/libbladeRF/fpga /opt/install/sdrangel
+RUN make -j1 install
+#COPY --from=bladerf --chown=root /opt/install/libbladeRF/fpga /opt/install/sdrangel
 
 # The final "vanilla" GUI version with no particular hardware dependencies
 FROM gui AS vanilla
 # Start SDRangel and some more services on which SDRangel depends
-COPY --chmod=755 start_server.sh $STARTUPDIR/custom_startup.sh
+#COPY --chmod=755 start_server.sh $STARTUPDIR/custom_startup.sh
+RUN echo "/usr/bin/desktop_ready && /opt/install/sdrangel/bin/sdrangel &" > $STARTUPDIR/custom_startup.sh \
+&& chmod +x $STARTUPDIR/custom_startup.sh
 RUN chmod +x $STARTUPDIR/custom_startup.sh
-COPY --chmod=755 restart_server.sh /home/kasm-default-profile/restart.sh
+#COPY --chmod=755 restart_server.sh /home/kasm-default-profile/restart.sh
 RUN cp $HOME/.config/xfce4/xfconf/single-application-xfce-perchannel-xml/* $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/
-RUN cp /usr/share/extra/backgrounds/bg_kasm.png /usr/share/extra/backgrounds/bg_default.png
+#RUN cp /usr/share/extra/backgrounds/bg_kasm.png /usr/share/extra/backgrounds/bg_default.png
 RUN apt-get remove -y xfce4-panel
 
 RUN chown 1000:0 $HOME
